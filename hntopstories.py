@@ -1,3 +1,4 @@
+import time
 import requests
 import json
 
@@ -21,6 +22,10 @@ for id in source_content_list:
     full_url_list.append(full_url)
 
 for url in full_url_list:
-    fullurl_response = requests.get(url)
-    fullurl_response_content = fullurl_response.content
-    print fullurl_response_content
+    response = requests.get(url)
+    assert response.status_code == 200
+    story = json.loads(response.text)
+    print story['title'] + ' - ' + str(story['score'])
+    # print response
+    time.sleep(1)
+
